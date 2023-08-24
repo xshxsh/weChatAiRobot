@@ -1,0 +1,30 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: wechat-ai-robot
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # 文件上传大小限制
+  servlet:
+    multipart:
+      max-file-size: 50MB
+  # swagger3.0兼容问题
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+logging:
+  config: classpath:logback-spring.xml
+
+
+# 讯飞AI
+xunfei:
+  hostUrl: https://spark-api.xf-yun.com/v1.1/chat
+  appid:
+  apisecret:
+  apikey:

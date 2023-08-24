@@ -1,0 +1,61 @@
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 动态日志级别 -->
+    <jmxConfigurator/>
+    <!-- 定义日志文件 输出位置-->
+    <property name="logHome" value="logs"/>
+    <!--文件名称 固定值-->
+    <property name="logFileName" value="application"/>
+    <!--文件大小的最大值-->
+    <property name="maxFileSize" value="500MB"/>
+    <!--存放天数-->
+    <property name="maxHistory" value="3"/>
+    <!--日志格式-->
+    <property name="log_layout"
+              value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level{length=5}] [%cn] [%thread] [%X{PtxId}] [%X{PspanId}] [%logger{35},%L,%M] [%X{extended}] ['%m'] ['%ex']%n"/>    <!-- ConsoleAppender 控制台输出日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log_layout}</pattern>
+        </encoder>
+    </appender>
+    <!-- 文件 -->
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logHome}/${logFileName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logHome}/${logFileName}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log_layout}</pattern>
+        </encoder>
+    </appender>
+    <!-- 异步输出 -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="ROLLING_FILE"/>
+        <queueSize>3000</queueSize>
+    </appender>
+    <!-- prd 环境配置 -->
+    <springProfile name="prd">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </root>
+    </springProfile>
+    <!-- 非prd 环境配置 -->
+    <springProfile name="!prd">
+        <logger name="com.ibatis" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </logger>
+        <logger name="com.rich.ragtorich" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </root>
+    </springProfile>
+</configuration>
+
