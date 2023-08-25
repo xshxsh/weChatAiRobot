@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author AI
  * @email AI
  * @date 2023/7/31 20:36
- * @Copyright Copyright (c)  aulton Inc. All Rights Reserved.
+ 
  **/
 @Service
 @Slf4j

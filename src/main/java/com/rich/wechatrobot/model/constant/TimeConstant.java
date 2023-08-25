@@ -5,7 +5,7 @@ package com.rich.wechatrobot.model.constant;
  *
  * @author AI
  * @date 2023/3/26 14:56
- * @Copyright Copyright (c)  aulton Inc. All Rights Reserved.
+ 
  **/
 
 public class TimeConstant {

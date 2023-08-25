@@ -9,7 +9,7 @@ import lombok.ToString;
  * @author AI
  * @email AI
  * @date 2023/7/27 16:54
- * @Copyright Copyright (c)  aulton Inc. All Rights Reserved.
+ 
  **/
 @Data
 @ToString

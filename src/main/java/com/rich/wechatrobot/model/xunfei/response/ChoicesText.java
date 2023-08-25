@@ -6,7 +6,7 @@ import lombok.Data;
  * @author AI
  * @email AI
  * @date 2023/7/27 20:22
- * @Copyright Copyright (c)  aulton Inc. All Rights Reserved.
+ 
  **/
 @Data
 public class ChoicesText {
